@@ -9,4 +9,12 @@ dpdk_dir=dpdk-stable-22.11.2
 test_dir=$dpdk_dir/build/app/test
 dev_addr=$1
 
+
+reg=$(mlxreg -d /dev/mst/mt4123_pciconf0 --reg_name CRYPTO_OPERATIONAL --get | grep "wrapped_crypto_operational")
+echo "crypto operational reg: $reg"
+if [ "$reg" != "wrapped_crypto_operational | 0x00000001" ]; then
+    echo "crypto operational reg is not 0x00000001"
+    exit 1
+fi
+
 $test_dir/dpdk-test -c 1 -n 1 -a $dev_addr,class=crypto cryptodev_mlx5_autotest

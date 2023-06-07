@@ -11,6 +11,14 @@ bash ofed_setup.sh
 bash dpdk_setup.sh
 ```
 
+**Set Device Register**
+
+```bash
+bash set_register.sh
+```
+
+The *wrapped_crypto_operational* register should be 0x00000001
+
 **Verify MLX5 Crypto Driver**
 ```bash
 bash verify_mlx5.sh <CX6 Dx Pci address>
