@@ -10,9 +10,9 @@ test_dir=$dpdk_dir/build/app/test
 dev_addr=$1
 
 
-reg=$(mlxreg -d /dev/mst/mt4123_pciconf0 --reg_name CRYPTO_OPERATIONAL --get | grep "wrapped_crypto_operational")
+reg=$(mlxreg -d /dev/mst/mt4123_pciconf0 --reg_name CRYPTO_OPERATIONAL --get | grep -oP "wrapped_crypto_going_to_commissioning\s+\|\s+\K\d{1}x\d{8}")
 echo "crypto operational reg: $reg"
-if [ "$reg" != "wrapped_crypto_operational | 0x00000001" ]; then
+if [ "$reg" != "0x00000001" ]; then
     echo "crypto operational reg is not 0x00000001"
     exit 1
 fi
